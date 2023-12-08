@@ -1,0 +1,247 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable import/no-extraneous-dependencies */
+import { expect, fixture, html, oneEvent } from '@open-wc/testing';
+import { sendKeys, sendMouse } from '@web/test-runner-commands';
+
+import { SinonSpy, spy } from 'sinon';
+
+import './scl-text-field.js';
+import type { SclTextField } from './scl-text-field.js';
+
+function timeout(ms: number) {
+  return new Promise(res => {
+    setTimeout(res, ms);
+  });
+}
+
+describe('Custom SCL related TextField', () => {
+  describe('with nullable option being activated', () => {
+    describe('and value set not to null', () => {
+      let sclTextField: SclTextField;
+      let event: SinonSpy;
+
+      beforeEach(async () => {
+        sclTextField = await fixture(
+          html`<scl-text-field
+            nullable
+            pattern="[A-Z]+"
+            .value="${'ASD'}"
+          ></scl-text-field>`
+        );
+
+        event = spy();
+        window.addEventListener('input', event);
+      });
+
+      it('triggers input event with clicked nullSwitch', async () => {
+        sclTextField.nullSwitch?.click();
+
+        expect(event).to.have.been.calledOnce;
+      });
+
+      it('return null with clicked nullSwitch', async () => {
+        expect(sclTextField.value).to.equal('ASD');
+
+        sclTextField.nullSwitch?.click();
+        await sclTextField.updateComplete;
+
+        expect(sclTextField.value).to.be.null;
+      });
+
+      it('saved the value on nulledSwitch toggle', async () => {
+        expect(sclTextField.value).to.equal('ASD');
+
+        sclTextField.nullSwitch?.click();
+        await sclTextField.updateComplete;
+
+        sclTextField.nullSwitch?.click();
+        await sclTextField.updateComplete;
+
+        expect(sclTextField.value).to.equal('ASD');
+      });
+    });
+
+    describe('and value set to null', () => {
+      let sclTextField: SclTextField;
+      let event: SinonSpy;
+
+      beforeEach(async () => {
+        sclTextField = await fixture(
+          html`<scl-text-field
+            nullable
+            pattern="[A-Z]+"
+            .value=${null}
+          ></scl-text-field>`
+        );
+
+        event = spy();
+        window.addEventListener('input', event);
+      });
+
+      it('triggers input event with clicked nullSwitch', async () => {
+        sclTextField.nullSwitch?.click();
+
+        expect(event).to.have.been.calledOnce;
+      });
+
+      it('return non null value with clicked nullSwitch', async () => {
+        expect(sclTextField.value).to.be.null;
+
+        sclTextField.nullSwitch?.click();
+        await sclTextField.updateComplete;
+
+        expect(sclTextField.value).to.equal('');
+      });
+    });
+  });
+
+  describe('with unit and multiplier set', () => {
+    let sclTextField: SclTextField;
+    let event: SinonSpy;
+
+    beforeEach(async () => {
+      sclTextField = await fixture(
+        html`<scl-text-field
+          pattern="[A-Z]+"
+          .value="${'ASD'}"
+          unit="s"
+          .multipliers=${[null, '', 'n', 'u', 'm']}
+          .multiplier=${'m'}
+        ></scl-text-field>`
+      );
+
+      event = spy();
+      window.addEventListener('input', event);
+    });
+
+    it('returns both unchanged', async () => {
+      await sclTextField.updateComplete;
+
+      expect(sclTextField.unit).to.equal('s');
+      expect(sclTextField.multiplier).to.equal('m');
+    });
+
+    it('changes multiplier to null', async () => {
+      await sendMouse({ type: 'click', position: [770, 20] });
+      await timeout(200); // fully render menu
+
+      await sendMouse({ type: 'click', position: [770, 80] }); // select option 1
+
+      expect(sclTextField.unit).to.equal('s');
+      expect(sclTextField.multiplier).to.equal(null);
+    });
+
+    it('changes multiplier to empty string', async () => {
+      await sendMouse({ type: 'click', position: [770, 20] });
+      await timeout(200); // fully render menu
+
+      await sendMouse({ type: 'click', position: [770, 130] }); // select option 1
+
+      expect(sclTextField.unit).to.equal('s');
+      expect(sclTextField.multiplier).to.equal('');
+    });
+
+    it('changes multiplier to empty string', async () => {
+      await sendMouse({ type: 'click', position: [770, 20] });
+      await timeout(200); // fully render menu
+
+      await sendMouse({ type: 'click', position: [770, 190] }); // select option 1
+
+      expect(sclTextField.unit).to.equal('s');
+      expect(sclTextField.multiplier).to.equal('n');
+    });
+  });
+
+  describe('with multiplier(s) set', () => {
+    let sclTextField: SclTextField;
+    let event: SinonSpy;
+
+    beforeEach(async () => {
+      sclTextField = await fixture(
+        html`<scl-text-field
+          pattern="[A-Z]+"
+          .value="${'ASD'}"
+          .multipliers=${[null, '', 'n', 'u', 'm']}
+          .multiplier=${'m'}
+        ></scl-text-field>`
+      );
+
+      event = spy();
+      window.addEventListener('input', event);
+    });
+
+    it('return multiplier null', async () => {
+      expect(sclTextField.multiplier).to.equal(null);
+    });
+  });
+
+  describe('with valid value', () => {
+    let sclTextField: SclTextField;
+    let event: SinonSpy;
+
+    beforeEach(async () => {
+      sclTextField = await fixture(
+        html`<scl-text-field pattern="[A-Z]+" value="ASD"></scl-text-field>`
+      );
+
+      event = spy();
+      window.addEventListener('invalid', event);
+      window.addEventListener('valid', event);
+      window.addEventListener('input', event);
+    });
+
+    it('returns true on reportValidity', () =>
+      expect(sclTextField.reportValidity()).to.be.true);
+
+    it('does not compose valid event', () => {
+      sclTextField.reportValidity();
+
+      expect(event).to.not.have.been.called;
+    });
+
+    it('returns true on checkValidity', () =>
+      expect(sclTextField.checkValidity()).to.be.true);
+
+    it('triggers input event when value changes', async () => {
+      await sendMouse({ type: 'click', position: [10, 10] }); // focus input
+      await sendKeys({ type: '4' }); // trigger input event
+
+      expect(event).to.have.been.calledOnce;
+    });
+  });
+
+  describe('with invalid value', () => {
+    let sclTextField: SclTextField;
+    let event: SinonSpy;
+
+    beforeEach(async () => {
+      sclTextField = await fixture(
+        html`<scl-text-field pattern="[A-Z+]" value="1234"></scl-text-field>`
+      );
+
+      event = spy();
+      window.addEventListener('invalid', event);
+      window.addEventListener('valid', event);
+      window.addEventListener('input', event);
+    });
+
+    it('returns false on reportValidity', () =>
+      expect(sclTextField.reportValidity()).to.be.false);
+
+    it('do not compose invalid event', () => {
+      sclTextField.reportValidity();
+
+      expect(event).to.not.have.been.called;
+    });
+
+    it('returns false on checkValidity', () =>
+      expect(sclTextField.checkValidity()).to.be.false);
+
+    it('triggers input event when value changes', async () => {
+      await sendMouse({ type: 'click', position: [10, 10] }); // focus input
+      await sendKeys({ type: '4' }); // trigger input event
+
+      expect(event).to.have.been.calledOnce;
+    });
+  });
+});
