@@ -66,6 +66,15 @@ describe('Custom SCL related TextField', () => {
       await timeout(200);
       await visualDiff(sclTextField, `non-nullable/#3 disabled`);
     });
+
+    it('updates on new value set', async () => {
+      await timeout(200);
+
+      sclTextField.value = 'newValue';
+      await timeout(200);
+
+      await visualDiff(sclTextField, `non-nullable/#4 updates on value set`);
+    });
   });
 
   describe('that is nullable and has no unit selector', () => {

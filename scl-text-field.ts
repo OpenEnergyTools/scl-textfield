@@ -21,20 +21,21 @@ export class SclTextField extends LitElement {
   @property({ type: Boolean })
   nullable = false;
 
+  @state()
   private textFieldValue: string = '';
 
   /** SCL attributes `value`, can only be `null` if [[`nullable`]]. */
   @property({ type: String })
-  get value(): string | null {
-    return this.null ? null : this.textFieldValue;
-  }
-
   set value(value: string | null) {
     if (value === null) this.null = true;
     else {
       this.null = false;
       this.textFieldValue = value;
     }
+  }
+
+  get value(): string | null {
+    return this.null ? null : this.textFieldValue;
   }
 
   @property({ type: Boolean })
