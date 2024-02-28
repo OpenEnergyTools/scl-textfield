@@ -1,8 +1,8 @@
 {
   "name": "@openenergytools/scl-text-field",
-  "description": "TextField for SCL related attribute",
+  "description": "TextField for SCL related attributes",
   "license": "Apache-2.0",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "type": "module",
   "main": "dist/scl-text-field.js",
   "module": "dist/scl-text-field.js",
@@ -28,7 +28,7 @@
     "deploy": "npm run storybook:build && gh-pages --dist 'storybook-static'"
   },
   "dependencies": {
-    "@material/web": "^1.0.1",
+    "@material/web": "^1.2.0",
     "lit": "^2.0.2"
   },
   "devDependencies": {

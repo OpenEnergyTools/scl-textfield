@@ -48,6 +48,12 @@ This element was meant to be used only for plugins in this organization. If it s
 | `setCustomValidity` |         |             | `message: string` | `void`    |                |
 | `checkValidity`     |         |             |                   | `boolean` |                |
 
+#### Events
+
+| Name    | Type    | Description | Inherited From |
+| ------- | ------- | ----------- | -------------- |
+| `input` | `Event` |             |                |
+
 <details><summary>Private API</summary>
 
 #### Fields

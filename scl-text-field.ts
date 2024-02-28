@@ -191,9 +191,17 @@ export class SclTextField extends LitElement {
         class="nullswitch element"
         ?selected=${!this.null}
         ?disabled=${this.disabled}
-        @change=${() => {
-          this.null = !this.nullSwitch!.selected;
-        }}
+        @input="${async (evt: Event) => {
+          /** TODO(jakob-vogelsang): change when
+           * https://github.com/material-components/material-web/issues/5486
+           * is fixed */
+          evt.stopPropagation();
+        }}"
+        @change="${async (evt: Event) => {
+          this.null = !(evt.target as Switch).selected;
+          await this.updateComplete;
+          this.dispatchEvent(new Event('input'));
+        }}"
       ></md-switch>`;
     }
     return html``;

@@ -21,20 +21,20 @@ describe('Custom SCL related TextField', () => {
       let event: SinonSpy;
 
       beforeEach(async () => {
+        event = spy();
+
         sclTextField = await fixture(
           html`<scl-text-field
             nullable
             pattern="[A-Z]+"
             .value="${'ASD'}"
+            @input="${(evt: Event) => event(evt)}"
           ></scl-text-field>`
         );
-
-        event = spy();
-        window.addEventListener('input', event);
       });
 
       it('triggers input event with clicked nullSwitch', async () => {
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
 
         expect(event).to.have.been.calledOnce;
       });
@@ -42,7 +42,7 @@ describe('Custom SCL related TextField', () => {
       it('return null with clicked nullSwitch', async () => {
         expect(sclTextField.value).to.equal('ASD');
 
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
         await sclTextField.updateComplete;
 
         expect(sclTextField.value).to.be.null;
@@ -51,10 +51,10 @@ describe('Custom SCL related TextField', () => {
       it('saved the value on nulledSwitch toggle', async () => {
         expect(sclTextField.value).to.equal('ASD');
 
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
         await sclTextField.updateComplete;
 
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
         await sclTextField.updateComplete;
 
         expect(sclTextField.value).to.equal('ASD');
@@ -66,20 +66,20 @@ describe('Custom SCL related TextField', () => {
       let event: SinonSpy;
 
       beforeEach(async () => {
+        event = spy();
+
         sclTextField = await fixture(
           html`<scl-text-field
             nullable
             pattern="[A-Z]+"
             .value=${null}
+            @input="${(evt: Event) => event(evt)}"
           ></scl-text-field>`
         );
-
-        event = spy();
-        window.addEventListener('input', event);
       });
 
       it('triggers input event with clicked nullSwitch', async () => {
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
 
         expect(event).to.have.been.calledOnce;
       });
@@ -87,7 +87,7 @@ describe('Custom SCL related TextField', () => {
       it('return non null value with clicked nullSwitch', async () => {
         expect(sclTextField.value).to.be.null;
 
-        sclTextField.nullSwitch?.click();
+        await sendMouse({ type: 'click', position: [770, 20] });
         await sclTextField.updateComplete;
 
         expect(sclTextField.value).to.equal('');
@@ -100,6 +100,8 @@ describe('Custom SCL related TextField', () => {
     let event: SinonSpy;
 
     beforeEach(async () => {
+      event = spy();
+
       sclTextField = await fixture(
         html`<scl-text-field
           pattern="[A-Z]+"
@@ -107,16 +109,14 @@ describe('Custom SCL related TextField', () => {
           unit="s"
           .multipliers=${[null, '', 'n', 'u', 'm']}
           .multiplier=${'m'}
+          @input="${(evt: Event) => event(evt)}"
         ></scl-text-field>`
       );
 
-      event = spy();
-      window.addEventListener('input', event);
+      await sclTextField.updateComplete;
     });
 
     it('returns both unchanged', async () => {
-      await sclTextField.updateComplete;
-
       expect(sclTextField.unit).to.equal('s');
       expect(sclTextField.multiplier).to.equal('m');
     });
@@ -157,17 +157,16 @@ describe('Custom SCL related TextField', () => {
     let event: SinonSpy;
 
     beforeEach(async () => {
+      event = spy();
       sclTextField = await fixture(
         html`<scl-text-field
           pattern="[A-Z]+"
           .value="${'ASD'}"
           .multipliers=${[null, '', 'n', 'u', 'm']}
           .multiplier=${'m'}
+          @input="${(evt: Event) => event(evt)}"
         ></scl-text-field>`
       );
-
-      event = spy();
-      window.addEventListener('input', event);
     });
 
     it('return multiplier null', async () => {
