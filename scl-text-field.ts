@@ -228,7 +228,7 @@ export class SclTextField extends LitElement {
             min="${this.min}"
             type="${this.type}"
             .maxLength=${this.maxLength}
-            .minLength=${this.maxLength}
+            .minLength=${this.minLength}
             suffix-text="${this.suffixText || this.unit}"
           ></md-filled-text-field>
         </div>

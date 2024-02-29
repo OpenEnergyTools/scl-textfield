@@ -315,13 +315,12 @@ describe('Custom SCL related TextField', () => {
 
     it('checks for minLength restriction if set', async () => {
       sclTextField.minLength = 6;
-      sclTextField.maxLength = 6;
       await sendMouse({ type: 'click', position: [10, 10] }); // focus input
       await sendKeys({ type: 'ABCDE' }); // trigger input event
 
       sclTextField.reportValidity();
 
-      await timeout(200);
+      await timeout(400);
 
       await visualDiff(document.body, `restricted-text/minLength`);
     });
