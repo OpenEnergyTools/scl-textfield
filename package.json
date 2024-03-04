@@ -2,7 +2,7 @@
   "name": "@openenergytools/scl-text-field",
   "description": "TextField for SCL related attributes",
   "license": "Apache-2.0",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "type": "module",
   "main": "dist/scl-text-field.js",
   "module": "dist/scl-text-field.js",
