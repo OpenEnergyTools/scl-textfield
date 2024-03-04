@@ -47,6 +47,7 @@ This element was meant to be used only for plugins in this organization. If it s
 | `reportValidity`    |         |             |                   | `boolean` |                |
 | `setCustomValidity` |         |             | `message: string` | `void`    |                |
 | `checkValidity`     |         |             |                   | `boolean` |                |
+| `reset`             |         |             |                   | `void`    |                |
 
 #### Events
 

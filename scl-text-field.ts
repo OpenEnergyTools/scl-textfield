@@ -136,6 +136,10 @@ export class SclTextField extends LitElement {
     return this.textField!.checkValidity();
   }
 
+  reset(): void {
+    return this.textField!.reset();
+  }
+
   private returnParkedValue(): void {
     if (this.parkedValue === null) return;
     this.textFieldValue = this.parkedValue;

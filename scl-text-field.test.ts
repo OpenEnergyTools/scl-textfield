@@ -75,6 +75,20 @@ describe('Custom SCL related TextField', () => {
 
       await visualDiff(sclTextField, `non-nullable/#4 updates on value set`);
     });
+
+    it('allows to reset input changed for programmatic update', async () => {
+      await sendMouse({ type: 'click', position: [10, 10] }); // focus input
+      await sendKeys({ press: 'Backspace' }); // trigger input event
+
+      sclTextField.reset();
+
+      sclTextField.value = 'newValue';
+
+      await visualDiff(
+        sclTextField,
+        `non-nullable/#5 allow to reset for programmatic value update`
+      );
+    });
   });
 
   describe('that is nullable and has no unit selector', () => {
