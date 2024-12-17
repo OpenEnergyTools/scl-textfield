@@ -5,7 +5,7 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { visualDiff } from '@web/test-runner-visual-regression';
 
 import './scl-text-field.js';
-import type { SclTextField } from './scl-text-field.js';
+import type { SclTextField } from './SclTextField.js';
 
 const factor = window.process && process.env.CI ? 5 : 3;
 function timeout(ms: number) {

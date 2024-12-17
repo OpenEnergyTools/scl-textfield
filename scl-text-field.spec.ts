@@ -6,7 +6,7 @@ import { sendKeys, sendMouse } from '@web/test-runner-commands';
 import { SinonSpy, spy } from 'sinon';
 
 import './scl-text-field.js';
-import type { SclTextField } from './scl-text-field.js';
+import type { SclTextField } from './SclTextField.js';
 
 function timeout(ms: number) {
   return new Promise(res => {
