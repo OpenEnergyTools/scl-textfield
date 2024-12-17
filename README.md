@@ -25,10 +25,10 @@ This element was meant to be used only for plugins in this organization. If it s
 
 #### Static Fields
 
-| Name             | Privacy | Type     | Default                                                                                                                                                                                            | Description | Inherited From |
-| ---------------- | ------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
+| Name             | Privacy | Type     | Default                                                                                                                                                                                             | Description | Inherited From |
+| ---------------- | ------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------- | -------------- |
 | `scopedElements` |         | `object` | `{
-    'md-filled-text-field':MdFilledTextField,
+    'md-filled-text-field': MdFilledTextField,
     'md-switch': MdSwitch,
     'md-icon': MdIcon,
     'md-icon-button': MdIconButton,
