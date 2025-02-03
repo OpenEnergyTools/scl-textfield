@@ -2,7 +2,7 @@
   "name": "@openenergytools/scl-text-field",
   "description": "TextField for SCL related attributes",
   "license": "Apache-2.0",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "type": "module",
   "main": "dist/scl-text-field.js",
   "module": "dist/scl-text-field.js",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@open-wc/scoped-elements": "^3.0.5",
-    "@scopedelement/material-web": "^3.1.0",
+    "@scopedelement/material-web": "^3.10.0",
     "lit": "^3.0.0"
   },
   "devDependencies": {

@@ -7,13 +7,13 @@ import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import {
   CloseMenuEvent,
   MdMenu,
-} from '@scopedelement/matarial-web/menu/MdMenu.js';
-import { MdFilledTextField } from '@scopedelement/matarial-web/textfield/MdFilledTextField.js';
-import { MdIcon } from '@scopedelement/matarial-web/icon/MdIcon.js';
-import { MdIconButton } from '@scopedelement/matarial-web/iconbutton/MdIconButton.js';
-import { MdMenuItem } from '@scopedelement/matarial-web/menu/MdMenuItem.js';
-import { MdSwitch } from '@scopedelement/matarial-web/switch/MdSwtich.js';
-import { TextField } from '@scopedelement/matarial-web/textfield/internal/text-field';
+} from '@scopedelement/material-web/menu/MdMenu.js';
+import { MdFilledTextField } from '@scopedelement/material-web/textfield/MdFilledTextField.js';
+import { MdIcon } from '@scopedelement/material-web/icon/MdIcon.js';
+import { MdIconButton } from '@scopedelement/material-web/iconbutton/MdIconButton.js';
+import { MdMenuItem } from '@scopedelement/material-web/menu/MdMenuItem.js';
+import { MdSwitch } from '@scopedelement/material-web/switch/MdSwtich.js';
+import { TextField } from '@scopedelement/material-web/textfield/internal/text-field';
 
 /** TextField designed to be used for SCL element */
 export class SclTextField extends ScopedElementsMixin(LitElement) {
